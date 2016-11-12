@@ -1,40 +1,27 @@
 
-var Person = function Person(firstnameValue, lastnameValue) {
-	var firstName;
-	var lastName;
+function ScoreBoard() {
+	this.pointsName = ['Love', 'Fifteen', 'Thirty', 'Forty', 'Advantage'];
+	this.specialPointsName = {
+		'Forty-Forty': 'Deuce'
+	};
 
-	Object.defineProperty(this, 'firstName', {
-		get: function() {
-			return firstName;
-		},
-		set: function(value) {
-			firstName = value;
-		}
-	});
+	this.points = {
+		'A': 0,
+		'B': 0
+	};
+}
 
-	Object.defineProperty(this, 'lastName', {
-		get: function() {
-			return lastName;
-		},
-		set: function(value) {
-			lastName = value;
-		}
-	});
+ScoreBoard.prototype.display = function() {
+	var display = this.pointsName[this.points.A] + '-' + this.pointsName[this.points.B];
+	var specialDisplay = this.specialPointsName[display];
 
-	Object.defineProperty(this, 'name', {
-		get: function() {
-			return firstName + ' ' + lastName;
-		},
-		set: function(value) {
-			firstName = value.split(' ')[0];
-			lastName = value.split(' ')[1] || '';
-		}.bind(this)
-	});
-
-	this.name = firstnameValue + ' ' + lastnameValue;
+	return specialDisplay || display;
 };
 
+ScoreBoard.prototype.score = function(player) {
+	this.points[player]++;
+};
 
 module.exports = {
-	Person: Person
+	ScoreBoard: ScoreBoard
 };
